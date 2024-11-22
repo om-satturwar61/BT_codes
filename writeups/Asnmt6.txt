@@ -1,0 +1,17 @@
+Theory:
+1. Overview of Blockchain in Event Organization:
+
+Blockchain provides a secure and transparent platform for event organization, eliminating the need for third-party platforms. A smart contract ensures that event organizers can create events, manage ticket sales, and issue refunds to participants without relying on a centralized authority. Participants can buy tickets directly from the contract, and the entire process is secure and immutable.
+
+2. Benefits of Using Blockchain for Event Management:
+
+Transparency: All transactions, including ticket purchases and event details, are publicly available on the blockchain.
+Security: Funds from ticket sales are securely stored in the smart contract and can only be accessed based on the contract’s predefined rules.
+Automation: Smart contracts automate the process of ticket sales, event cancellations, and refunds, reducing human error.
+No Intermediaries: The event organization process becomes decentralized, reducing costs and ensuring direct interaction between organizers and participants.
+3. Key Components of a Smart Contract for Event Organization:
+
+Event Creation: Organizers can create events with specific details such as event name, date, ticket price, and available tickets.
+Ticket Purchase: Participants can buy tickets by sending Ether to the smart contract.
+Refund Mechanism: In case of event cancellation, participants can request a refund of their ticket price.
+Tracking Participants: The smart contract keeps track of participants and the number of tickets sold.

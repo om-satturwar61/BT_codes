@@ -1,0 +1,64 @@
+Step 1: Install Go Ethereum
+
+sudo apt-get install software-properties-common
+sudo add-apt-repository -y ppa:ethereum/ethereum
+sudo apt-get update
+sudo apt-get install Ethereum
+geth version
+
+Step 2: Create a Genesis Block Config File (genesis.json)
+
+{
+  "config": {
+    "chainId": 101,
+    "homesteadBlock": 0,
+    "eip150Block": 0,
+    "eip155Block": 0,
+    "eip158Block": 0
+  },
+  "difficulty": "400",
+  "gasLimit": "8000000",
+  "alloc": {
+    "0xYourAccountAddressHere": {
+      "balance": "100000000000000000000"
+    }
+  }
+}
+
+Step 3: Initialize the blockchain
+
+geth init genesis.json --datadir ./myPrivateBlockchain
+
+Step 4: Start the Private Ethereum Node
+
+geth --networkid 101 --nodiscover --datadir ./myPrivateBlockchain --http --http.port 8545 --http.api "personal,db,eth,net,web3,miner" --allow-insecure-unlock console
+
+Step 5: Create an Ethereum Account
+
+personal.newAccount("YourPasswordHere")
+
+Step 6:	Start Mining Ether
+
+miner.start()
+miner.stop() (To stop mining process)
+
+Step 7: Check Account Balance
+
+eth.getBalance("YourAccountAddress")
+
+Step 8: Send Transactions
+
+personal.unlockAccount("0xSenderAccountAddress", "YourPasswordHere", 15000)    (To unlock Account)
+
+eth.sendTransaction({from: "0xSenderAccountAddress", to: "0xRecipientAccountAddress", value: web3.utils.toWei(1, "ether")})
+
+Step 9: Start Second Node
+
+geth --datadir ./secondNode --port 30304 --networkid 101 --http --http.port 8546 --http.api "personal,db,eth,net,web3,miner" console
+
+Step 10: Connect Nodes
+
+admin.nodeInfo.enode (To get info of nodes)
+
+admin.addPeer("enode://SecondNodeEnodeAddress@127.0.0.1:30304") (To add Peer)
+

@@ -1,0 +1,20 @@
+Theory:
+1. Introduction to Merkle Trees:
+
+A Merkle Tree (also known as a binary hash tree) is a fundamental data structure in cryptography and blockchain technology. It enables efficient and secure verification of data by breaking down the data into smaller pieces, which are then hashed and arranged in a binary tree structure.
+
+Merkle Trees are used in various blockchain implementations, including Bitcoin and Ethereum, for proving the integrity and consistency of blocks of transactions. In a Merkle Tree:
+
+Each leaf node represents the hash of a data block.
+Each non-leaf node is the hash of the concatenation of its two child nodes.
+The root of the tree is known as the "Merkle Root," which summarizes the entire set of data.
+2. Key Concepts:
+
+Leaf Node: Represents a hash of an individual data block.
+Parent Node: Represents the hash of two child nodes combined.
+Merkle Root: The topmost node, which serves as the unique identifier of the entire data set.
+Hashing: A cryptographic function used to generate a fixed-size output from variable-size input data.
+3. Merkle Tree Operations:
+
+Constructing a Merkle Tree: This involves hashing individual data elements and recursively hashing pairs of child nodes until a single root hash (Merkle Root) is obtained.
+Verifying Data Integrity: The Merkle Tree allows verification of whether a particular piece of data belongs to the set by comparing the hashes up to the Merkle Root.

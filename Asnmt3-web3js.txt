@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decentralized Bank</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
+</head>
+<body>
+    <h1>Decentralized Bank</h1>
+
+    <!-- Display user balance -->
+    <button onclick="getBalance()">Check Balance</button>
+    <p id="balance">Balance: --</p>
+
+    <!-- Deposit Ether -->
+    <input type="number" id="depositAmount" placeholder="Enter deposit amount (ETH)" />
+    <button onclick="deposit()">Deposit</button>
+
+    <!-- Withdraw Ether -->
+    <input type="number" id="withdrawAmount" placeholder="Enter withdrawal amount (ETH)" />
+    <button onclick="withdraw()">Withdraw</button>
+
+    <!-- Transfer Ether -->
+    <input type="text" id="receiverAddress" placeholder="Receiver Address" />
+    <input type="number" id="transferAmount" placeholder="Transfer Amount (ETH)" />
+    <button onclick="transfer()">Transfer</button>
+
+    <script>
+        // ABI and Contract Address
+        const contractABI = [/* ABI goes here */];
+        const contractAddress = "0xYourContractAddressHere";
+
+        // Connect to Web3
+        let web3;
+        let contract;
+        let userAccount;
+
+        async function connectWeb3() {
+            if (window.ethereum) {
+                web3 = new Web3(window.ethereum);
+                await window.ethereum.request({ method: "eth_requestAccounts" });
+                const accounts = await web3.eth.getAccounts();
+                userAccount = accounts[0];
+
+                // Initialize contract
+                contract = new web3.eth.Contract(contractABI, contractAddress);
+                console.log("Connected to Web3:", userAccount);
+            } else {
+                alert("Please install MetaMask!");
+            }
+        }
+
+        // Call connectWeb3 on page load
+        window.onload = connectWeb3;
+
+        // Get balance
+        async function getBalance() {
+            try {
+                const balance = await contract.methods.getBalance().call({ from: userAccount });
+                document.getElementById("balance").innerText = `Balance: ${web3.utils.fromWei(balance, "ether")} ETH`;
+            } catch (error) {
+                console.error("Error getting balance:", error);
+            }
+        }
+
+        // Deposit Ether
+        async function deposit() {
+            const depositAmount = document.getElementById("depositAmount").value;
+            try {
+                await contract.methods.deposit().send({
+                    from: userAccount,
+                    value: web3.utils.toWei(depositAmount, "ether"),
+                });
+                alert("Deposit successful!");
+                getBalance();
+            } catch (error) {
+                console.error("Error depositing:", error);
+            }
+        }
+
+        // Withdraw Ether
+        async function withdraw() {
+            const withdrawAmount = document.getElementById("withdrawAmount").value;
+            try {
+                await contract.methods.withdraw(web3.utils.toWei(withdrawAmount, "ether")).send({
+                    from: userAccount,
+                });
+                alert("Withdrawal successful!");
+                getBalance();
+            } catch (error) {
+                console.error("Error withdrawing:", error);
+            }
+        }
+
+        // Transfer Ether
+        async function transfer() {
+            const receiverAddress = document.getElementById("receiverAddress").value;
+            const transferAmount = document.getElementById("transferAmount").value;
+            try {
+                await contract.methods.transfer(receiverAddress, web3.utils.toWei(transferAmount, "ether")).send({
+                    from: userAccount,
+                });
+                alert("Transfer successful!");
+                getBalance();
+            } catch (error) {
+                console.error("Error transferring:", error);
+            }
+        }
+    </script>
+</body>
+</html>

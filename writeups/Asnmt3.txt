@@ -1,0 +1,18 @@
+MetaMask Overview:
+
+MetaMask is a popular browser extension that serves as a cryptocurrency wallet and gateway to the Ethereum blockchain. It enables users to manage Ethereum-based assets and interact with decentralized applications (dApps). Users can approve or reject transactions, providing secure and transparent access to the blockchain without needing a full Ethereum node.
+
+2. Solidity Overview:
+
+Solidity is a contract-oriented programming language used for writing smart contracts on the Ethereum blockchain. It enables the creation of decentralized applications (dApps) that can manage assets, automate processes, and execute self-executing agreements (smart contracts) without intermediaries.
+
+3. Web3.js Overview:
+
+Web3.js is a JavaScript library that allows interaction with the Ethereum blockchain. It can be used to send transactions, read blockchain data, and execute smart contracts. By connecting a frontend to the Ethereum blockchain using Web3.js, users can seamlessly interact with smart contracts deployed on the network.
+
+4. Key Concepts for Banking Transactions:
+
+Deposits: Users send Ether to the smart contract, which holds it in a decentralized account.
+Withdrawals: Users can withdraw Ether from their decentralized account.
+Balance Inquiry: Users can check the balance of their decentralized account.
+Security: Banking operations are secured using smart contract code and MetaMask’s private key-based transaction approval system.

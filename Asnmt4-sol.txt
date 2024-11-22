@@ -1,0 +1,56 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract DecentralizedLottery {
+    address public manager;
+    address[] public participants;
+
+    // Constructor: Set the contract deployer as the manager
+    constructor() {
+        manager = msg.sender;
+    }
+
+    // Payable function to allow participants to enter the lottery
+    function enter() public payable {
+        require(msg.value > 0.01 ether, "Minimum Ether to enter is 0.01");
+
+        // Add the sender to the participants array
+        participants.push(msg.sender);
+    }
+
+    // Function to generate a pseudo-random number (using block properties)
+    function random() private view returns (uint) {
+        return uint(keccak256(abi.encodePacked(block.timestamp, block.prevrandao, participants.length)));
+    }
+
+    // Function to select a winner and transfer the prize
+    function pickWinner() public restricted{
+        require(participants.length > 0, "No participants in the lottery");
+
+        // Select a random index from the participants array
+        uint index = random() % participants.length;
+        address winner = participants[index];
+
+        // Transfer the entire contract balance to the winner
+        payable(winner).transfer(address(this).balance);
+
+        // Reset participants for the next lottery
+        participants = new address[](0);
+    }
+
+    // Modifier to restrict function access to the manager only
+    modifier restricted() {
+        require(msg.sender == manager, "Only the manager can perform this action");
+        _;
+    }
+
+    // Get the list of participants
+    function getParticipants() public view returns (address[] memory) {
+        return participants;
+    }
+
+    // Get the current balance of the contract
+    function getBalance() public view returns (uint) {
+        return address(this).balance;
+    }
+}
